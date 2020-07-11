@@ -14,11 +14,12 @@ application.post('/noticias/salvar', function(req, res){
     req.assert('data_noticia','o data é obrigatorio').notEmpty().isDate({format: 'YYYY-MM-DD'});
     req.assert('noticia','o campo de noticia é obrigatorio').notEmpty();
 
-    const erros = req.validationErrors();
+    var erros = req.validationErrors();
 
     if(erros){
-        res.render('admin/form_add_noticia')
-        return;
+        res.render('admin/form_add_noticia', {validacao: erros});
+        return ;
+
     }
 
     const connection = application.config.dbConnection();
